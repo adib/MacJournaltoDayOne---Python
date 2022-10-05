@@ -88,18 +88,19 @@ def main(argv=None):
 
 			main_logger.debug("Reached EOF")
 	
-		if entryLine.startswith("\tDate:\t"): # An entry is finished
+		if entryLine.startswith("Date: "): # An entry is finished
 			prevEntryDate = curEntryDate
 			prevEntry = curEntry
 			prevEntryLines = curEntryLines
 			curEntry = ''
 			curEntryLines = 0
-			curEntryDate = entryLine.replace("\tDate:\t",'').rstrip()
+			curEntryDate = entryLine.replace("Date: ",'').rstrip()
 			entryDone = True
 			main_logger.debug("Found entry: {0}".format(curEntryDate))
-		elif entryLine.startswith('\tTopic:\t'): # The current entry topic
 			prevEntryTopic = curEntryTopic
-			curEntryTopic = entryLine.replace('\tTopic:\t','').rstrip()
+			curEntryTopic = ''
+		elif entryLine.startswith('Topic: '): # The current entry topic
+			curEntryTopic = entryLine.replace('Topic: ','').rstrip()
 		elif entryLine is not "":
 			curEntry += entryLine
 			curEntryLines += 1
